@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.7.9
+    ports:
+    - containerPort: 80
+    volumeMounts:
+      - name: aws-ebs-volumes
+        mountPath: /data
+  volumes:
+  - name: aws-ebs-volumes
+    awsElasticBlockStore:
+      volumeID: vol-0670b0eec27dba17f

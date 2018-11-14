@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pv
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.7.9
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: nginx-pv-claim
+      mountPath: /data
+  volumes:
+  - name: nginx-pv-claim
+    persistentVolumeClaim:
+      claimName: nginx-pv-claim
