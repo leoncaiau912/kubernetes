@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: visionui
+  labels:
+    app: visionui
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: visionui
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: visionui
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: visionui
+    spec:
+      containers:
+      - name: visionui
+        image: reg.cf/vision-ui:1.21.0-20181120225236-da9b360f
+        ports:
+        - containerPort: 80
