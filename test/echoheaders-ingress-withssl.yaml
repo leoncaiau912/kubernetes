@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: echoheaders
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - echoheaders.testing.freestyleiot.com
+    secretName: echoheaders-tls
+
+  - hosts:
+    - echoheaders1.testing.freestyleiot.com
+    secretName: echoheaders1-tls
+
+  rules:
+  - host: echoheaders.testing.freestyleiot.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: echoheaders
+          servicePort: 80
+  - host: echoheaders1.testing.freestyleiot.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: echoheaders
+          servicePort: 80
+
